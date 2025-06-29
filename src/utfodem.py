@@ -66,13 +66,14 @@ def decode(encoded):
             break
         first, second = encoded[i], encoded[i + 1]
         if first not in reverse_codex or second not in reverse_codex:
-            raise ValueError(f"Invalid codex character at position {i}")
+            raise ValueError(f"Invalid codex character at position {i} with characters {first}{second}")
         digit = reverse_codex[first] * CODEX_SIZE + reverse_codex[second]
         num = num * PAIR_SIZE + digit
     
     # Convert number to ASCII
     decoded = ""
     while num > 0:
+        if num % ASCII_SIZE == 0: break
         decoded = chr(num % ASCII_SIZE) + decoded
         num //= ASCII_SIZE
 
